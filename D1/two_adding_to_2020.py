@@ -31,7 +31,7 @@ def find_three_numbers(numbers: List[int]):
     for one in numbers:
         for two in numbers:
             for three in numbers:
-                if one+two+three == 2020:
-                    print(one, two, three, one*two*three)
+                if one + two + three == 2020:
+                    return one * two * three
 
-find_three_numbers(numbers)
+print(find_three_numbers(numbers))
