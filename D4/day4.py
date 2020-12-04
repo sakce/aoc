@@ -5,26 +5,30 @@ from typing import Dict, List
 dirname = os.path.dirname(__file__)
 inputfile = os.path.join(dirname, 'input.txt')
 
+
 def read_input(filename):
     passports = []
 
     with open(filename, "r") as f:
-        
+
         temp = dict()
-        
+
         for line in f.readlines():
             # If it's a break line, passport is complete, start a new one
             if line == "\n":
                 passports.append(temp)
                 temp = dict()
-            else: # While we're between break lines, add all the keys of the passport
+            else:  # While we're between break lines, add all the keys of the passport
                 pass_line = line.strip("\n").split(" ")
                 for field in pass_line:
-                    temp[str(field[:3])] = field[4:] # 1st part is the key, up to the ":", 2nd - value
+                    # 1st part is the key, up to the ":", 2nd - value
+                    temp[str(field[:3])] = field[4:]
     return passports
 
+
 def check_necessary_fields(passport_list: List[dict]):
-    nec_fields = ('byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid') # 'cid' missing on purpose
+    nec_fields = ('byr', 'iyr', 'eyr', 'hgt', 'hcl',
+                  'ecl', 'pid')  # 'cid' missing on purpose
 
     count = 0
 
@@ -39,7 +43,6 @@ def check_necessary_fields(passport_list: List[dict]):
         else:
             invalids.append(passport)
     return valid_passports, count
-
 
 
 # Second star
@@ -69,6 +72,7 @@ def perform_check(single_pass: Dict):
          ("in" in single_pass['hgt'] and (59 <= int(single_pass['hgt'][:-2]) <= 76)))]
 
     return all(is_valid)
+
 
 if __name__ == "__main__":
 
