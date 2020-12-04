@@ -5,12 +5,15 @@ from typing import Dict, List
 dirname = os.path.dirname(__file__)
 inputfile = os.path.join(dirname, 'input.txt')
 
-# TODO: The input file needs to have 2 empty spaces at the end in order 
-# to include the last passport. Either add those two lines with
-#  code, or fix the exception.
 
 def read_input(filename):
     passports = []
+
+    # To be able to read the last passport, two blank lines are needed...
+    with open(filename, "a") as f:
+        f.write("\n")
+        f.write("\n")
+    f.close()
 
     with open(filename, "r") as f:
 
