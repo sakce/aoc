@@ -28,11 +28,9 @@ def find_row(boarding_pass: str):
         else:
             if letter == "F":
                 max_row = rows[len(rows) // 2 - 1]
-                # print("Lower", min_row, max_row)
                 rows = list(range(min_row, max_row + 1))
             elif letter == "B":
                 min_row = rows[len(rows) // 2]
-                # print("Upper", min_row, max_row)
                 rows = list(range(min_row, max_row + 1))
             else:
                 Exception("Uh-oh")
@@ -49,10 +47,11 @@ def find_column(boarding_pass: str):
         if idx == 2:  # If last letter
             if letter == "L":
                 col = cols[0]
-                return col
+
             elif letter == "R":
                 col = cols[1]
-                return col
+
+            return col
         else:
             if letter == "L":
                 max_col = cols[len(cols) // 2 - 1]
