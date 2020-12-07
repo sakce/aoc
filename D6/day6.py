@@ -1,7 +1,4 @@
 import os
-import re
-
-
 
 def count_questions_part_one(inputfile):
     q_count = 0 
@@ -43,21 +40,3 @@ if __name__ == "__main__":
 
     print(f"Part 2 solution: {count_questions_part_two(inputfile)}")
 
-
-
-
-
-#         if line == "\n":
-#             temp_count = len(temp_questions)
-#             print(temp_count)
-#             q_count += temp_count
-#             temp_count = 0
-
-#         elif temp_count == 0:
-#             temp_questions = set(list(line.strip("\n")))
-#             print(temp_questions)
-
-#         else:
-#             temp_questions.add(list(line.strip("\n")))
-
-# print(q_count)
