@@ -10,10 +10,15 @@ def part1(numbers, preamble_n):
 
         temp_nums = numbers[start:end]
 
+        # make all combinations of the current preamble_n (#) of rows
         temp_combs = combinations(temp_nums, 2)
 
+        # sum the numbers of each combination
         comb_sums = map(sum, (list(temp_combs)))
 
+        # end the loop when we see the 26th number in a sequence,
+        # whose value is not found in the sums of combinations of the
+        # previous 25 numbers
         if numbers[end] not in comb_sums:
             return numbers[end]
         start += 1
@@ -24,6 +29,10 @@ def part1(numbers, preamble_n):
 
 
 def part2(data, part1_solution):
+    '''Input the lines (numbers) and the solution of part 1. 
+    Checks the contiguous sets and whether there is such a set whose
+    sum is equal to the solution of part 1. 
+    Returns the sum of minimum and maximum value of such set. '''
     smaller_numbers = [a for a in data if a < part1_solution]
 
     for idx, i in enumerate(smaller_numbers):
@@ -34,7 +43,7 @@ def part2(data, part1_solution):
             idx_copy += 1
 
         if sum(temp) == part1_solution:
-            return (temp, min(temp) + max(temp))
+            return min(temp) + max(temp)
 
 
 if __name__ == "__main__":

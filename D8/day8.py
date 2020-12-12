@@ -4,6 +4,8 @@ from typing import Dict, List
 
 
 def accumulate(ops: Dict, idx: int, acc: int) -> (int, int):
+    '''Update the accumulate value by the value of the current operation. 
+    Return update acc and the index for the next operation'''
     op = ops.get(idx)
     acc += int(op['acc'])
 
@@ -11,12 +13,16 @@ def accumulate(ops: Dict, idx: int, acc: int) -> (int, int):
 
 
 def jump(ops: Dict, idx: int) -> int:
+    '''Return the index for the next operation
+    based on the value of the jump operation'''
+
     op = ops.get(idx)
 
     return idx + int(op['jmp'])
 
 
 def no_op(idx: int) -> int:
+    '''Return the next index. Unnecessary function in general..'''
     return idx + 1
 
 
@@ -27,8 +33,9 @@ def part1(ops: Dict) -> int:
     idx = 0
     acc = 0
 
-    while idx not in checked:
+    while idx not in checked:  # go over the ops as long as we checked it before
         checked.append(idx)
+        # get the sub-dictionary of the operation that is at the idx index
         op = ops.get(idx)
 
         if 'acc' in op.keys():
@@ -48,7 +55,7 @@ def do_the_thing_part2(ops: Dict) -> (int, List[int]):
     acc = 0
 
     while idx not in checked:
-        if idx == 645:
+        if idx == len(ops) - 1:  # break out of the loop if it has checked the last item of the input
             checked.append(idx)
             break
         else:
@@ -72,19 +79,27 @@ def part2(ops: Dict) -> int:
         else:
             to_change.append(op)
 
+    # go over all the items that can be changed ('jmp', 'nop')
     for ch in to_change:
         temp_ops = ops.copy()
+        # temporary save of the key and value
         key = list(temp_ops[ch].keys())[0]
         value = list(temp_ops[ch].values())[0]
 
+        # change the temporary copy of the operations,
+        # with an updated value for the operation that needs changing
+        # nop - becomes -> jmp ; jmp - becomes -> nop
         if key == 'nop':
             temp_ops[ch] = {'jmp': value}
         else:
             temp_ops[ch] = {'nop': value}
 
+        # perform the check on the updated version
         acc, checked = do_the_thing_part2(temp_ops)
 
-        if len(ops) - 1 in checked:  # if the index of the last row has been checked
+        # break the loop if there is a version of
+        # the operations that do not lead to an infinite loop
+        if len(ops) - 1 in checked:
             return acc
 
 
